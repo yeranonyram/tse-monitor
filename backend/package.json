@@ -1,27 +1,43 @@
 {
-  "name": "backend",
+  "name": "tse-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Sistema de monitoreo y conteo de votos TSE Bolivia",
+  "main": "dist/server.js",
   "scripts": {
-    "dev": "ts-node-dev src/server.ts"
+
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+
+    "build": "tsc",
+
+    "start": "node dist/server.js",
+
+    "start:prod": "NODE_ENV=production node dist/server.js"
+
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "tse",
+    "bolivia",
+    "postgres",
+    "sequelize",
+    "docker",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "Yerko Flores",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^1.13.5",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
-    "express": "^5.2.1",
+    "express": "^4.19.2",
     "pg": "^8.18.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.2.3",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.30",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
   }

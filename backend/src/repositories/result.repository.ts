@@ -1,23 +1,28 @@
-import { pool } from "../config/database";
+import { Resultado } from "../models/resultado.model";
 
-export const guardarResultado = async (
-  departamento: string,
-  municipio: string,
-  mesa: string,
-  votos: any
-) => {
+export const guardarResultado = async (data: any) => {
 
-  const query = `
-    INSERT INTO resultados
-    (departamento, municipio, mesa, votos)
-    VALUES ($1, $2, $3, $4)
-  `;
+  try {
 
-  await pool.query(query, [
-    departamento,
-    municipio,
-    mesa,
-    votos
-  ]);
+    await Resultado.upsert({
+      codigo: data.codigo,
+      nombre: data.nombre,
+      votos: data.votos,
+      porcentaje: data.porcentaje
+    });
+
+  } catch (error) {
+
+    console.error("Error guardando resultado:", error);
+
+  }
+
+};
+
+export const obtenerResultados = async () => {
+
+  return await Resultado.findAll({
+    order: [["votos", "DESC"]]
+  });
 
 };
