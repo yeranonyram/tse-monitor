@@ -1,13 +1,23 @@
 import { ResultadoService } from "../services/resultado.service";
 
-export const iniciarJobTSE = () => {
+export async function iniciarJobTSE() {
 
   setInterval(async () => {
 
-    console.log("Consumiendo TSE...");
+    try {
 
-    await ResultadoService.guardarResultados();
+      console.log("Sincronizando TSE...");
 
-  }, 60000);
+      await ResultadoService.actualizarResultados();
 
-};
+      console.log("Sincronización exitosa");
+
+    } catch (error) {
+
+      console.error("Error en sincronización:", error);
+
+    }
+
+  }, 30000);
+
+}

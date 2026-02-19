@@ -1,25 +1,23 @@
-import axios from "axios";
 import { Resultado } from "../models/resultado.model";
-
-const API_BASE = "https://computo.oep.org.bo/api";
+import { obtenerResultadosOEP } from "./oep.service";
 
 export class ResultadoService {
 
   static async obtenerTodos() {
+
     return await Resultado.findAll({
       order: [["votos", "DESC"]],
     });
+
   }
 
-  static async guardarResultados() {
+  static async actualizarResultados() {
 
     try {
 
-      const response = await axios.get(`${API_BASE}/presidente`);
+      const data = await obtenerResultadosOEP();
 
-      const data = response.data;
-
-      console.log("Datos TSE recibidos");
+      console.log("Datos TSE recibidos:", data.length);
 
       for (const item of data) {
 
@@ -37,6 +35,8 @@ export class ResultadoService {
     } catch (error) {
 
       console.error("Error guardando resultados:", error);
+
+      throw error;
 
     }
 
